@@ -6,15 +6,29 @@
 // Siga os comentários para implementar cada parte do desafio.
 //Teste Erick
 
+void PrintCartas(char codigoCidade[5], char nome[25], int populacao, int numeroPontosTuristicos, double area, double pib, double densidadePopulacional, double pibPerCapta) {
+    printf("\n\n------------------------------\n");
+            printf("Código da cidade: %s \n", codigoCidade);
+            printf("Nome da cidade: %s \n", nome);
+            printf("N° de pontos turísticos da cidade: %d \n", numeroPontosTuristicos);
+            printf("População da cidade: %d \n", populacao);
+            printf("Área da cidade: %.2f \n", area); //uso de %.2f para limitar o valor depois da virgula a 2 casas decimais
+            printf("PIB da cidade: %.2f \n", pib);
+            printf("Densidade populacional da cidade: %.2f \n", densidadePopulacional);
+            printf("PIB per capta da cidade: %.2f \n", pibPerCapta);
+            printf("------------------------------\n\n");
+}
+
 int main() {
     // Sugestão: Defina variáveis separadas para cada atributo da cidade.
     // Exemplos de atributos: código da cidade, nome, população, área, PIB, número de pontos turísticos.
-    char codigoCidade[3];
+    char codigoCidade[5];
     char nome[25];
     int populacao;
     int numeroPontosTuristicos;
     double area;
     double pib;
+    double densidadePopulacional, pibPerCapta;
     int opcao;
 
     // Cadastro das Cartas:
@@ -46,19 +60,16 @@ int main() {
             scanf("%d", &populacao);
 
             printf("Digite a área (Km²) da cidade: \n");
-            scanf("%f", &area);
+            scanf("%lf", &area);
 
             printf("Digite o PIB da cidade: \n");
-            scanf("%f", &pib);
+            scanf("%lf", &pib);
             
-            printf("\n\n------------------------------\n");
-            printf("Código da cidade: %s \n", codigoCidade);
-            printf("Nome da cidade: %s \n", nome);
-            printf("N° de pontos turísticos da cidade: %d \n", numeroPontosTuristicos);
-            printf("População da cidade: %d \n", populacao);
-            printf("Área da cidade: %.2f \n", area); //uso de %.2f para limitar o valor depois da virgula a 2 casas decimais
-            printf("PIB da cidade: %.2f \n", pib);
-            printf("------------------------------\n\n");
+            densidadePopulacional = (double) populacao / area;
+            pibPerCapta = pib / (double) populacao;
+
+            PrintCartas(codigoCidade, nome, populacao, numeroPontosTuristicos, area, pib, densidadePopulacional, pibPerCapta);
+
             break;
         
         case 2:
