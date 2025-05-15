@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdbool.h> //inclusão de biblioteca para usar valores booleanos
 
 // Desafio Super Trunfo - Países
 // Tema 2 - Super Trunfo em c: Desenvolvendo a Lógica do Jogo
-// O nível novato já foi desenvolvido no desafio passado
+// Nível intermediário
 //Teste Erick
 
 void PrintCarta(char codigoCidade[5], char estado[3], char nome[25], unsigned long int populacao, int numeroPontosTuristicos, float area, float pib, float densidadePopulacional, float pibPerCapta, float superPoder) {
@@ -23,24 +24,30 @@ void PrintCarta(char codigoCidade[5], char estado[3], char nome[25], unsigned lo
 int CompararCartasFloat(float valor1, float valor2){ //função comum para comparação de área, pib, densidade, pib per capta e super poder.
     if(valor1 > valor2){
         return 1;
-    }else{
+    }else if(valor1 < valor2){
         return 0;
+    }else{
+        return 2;
     }
 }
 
 int CompararCartasPontoTuristico(int valor1, int valor2){
     if(valor1 > valor2){
         return 1;
-    }else{
+    }else if(valor1 < valor2){
         return 0;
+    }else{
+        return 2;
     }
 }
 
 int CompararCartasPopulacao(unsigned long int valor1, unsigned long int valor2){
     if(valor1 > valor2){
         return 1;
-    }else{
+    }else if(valor1 < valor2){
         return 0;
+    }else{
+        return 2;
     }
 }
 
@@ -56,6 +63,8 @@ int main() {
     float pib1, pib2;
     float densidadePopulacional1, pibPerCapta1, densidadePopulacional2, pibPerCapta2;
     float superPoder1, superPoder2;
+    bool sair = false; //variável para sair do loop de escolha de atributo
+    int opcao;
 
     // Cadastro das Cartas:
     // Sugestão: Utilize a função scanf para capturar as entradas do usuário para cada atributo.
@@ -75,7 +84,7 @@ int main() {
     scanf("%s", &estado1);
 
     printf("Digite o nome da cidade da primeira carta: \n");            
-    scanf("%s", &nome1);  //uso de %[^\n] no lugar de %s para ler espaços caso o nome da cidade seja um nome composto. Ex: Porto Alegre
+    scanf("%s", &nome1);  
 
     printf("Digite o número de pontos turísticos da cidade da primeira carta: \n");
     scanf("%d", &numeroPontosTuristicos1);
@@ -104,7 +113,7 @@ int main() {
     scanf("%s", &estado2);
 
     printf("Digite o nome da cidade da segunda carta: \n");            
-    scanf("%s", &nome2);  //uso de %[^\n] no lugar de %s para ler espaços caso o nome da cidade seja um nome composto. Ex: Porto Alegre
+    scanf("%s", &nome2);  
 
     printf("Digite o número de pontos turísticos da cidade da segunda carta: \n");
     scanf("%d", &numeroPontosTuristicos2);
@@ -124,55 +133,108 @@ int main() {
 
     PrintCarta(codigoCarta2, estado2, nome2, populacao2, numeroPontosTuristicos2, area2, pib2, densidadePopulacional2, pibPerCapta2, superPoder2);
 
-    printf("***Fase das Comparações***\n\n");
+    while(sair == false){
+        printf("Qual atributo você deseja comparar? (Digite um número de 1 a 8)\n");
+        printf("(1) População\n");
+        printf("(2) Número de Pontos Turísticos\n");
+        printf("(3) Área\n");
+        printf("(4) PIB\n");
+        printf("(5) Densidade Populacional\n");
+        printf("(6) PIB Per Capta\n");
+        printf("(7) Super Poder\n");
+        printf("(8) Sair\n\n");
+        
+        scanf("%d", &opcao);
 
-    printf("População: ");
-    if(CompararCartasPopulacao(populacao1, populacao2) == 1){
-        printf("A Carta 1 Venceu!!\n");
-    }else{
-        printf("A Carta 2 Venceu!!\n");
-    }
+        switch (opcao)
+        {
+        case 1:
+            printf("População: ");
+            if(CompararCartasPopulacao(populacao1, populacao2) == 1){
+                printf("A Carta 1 Venceu!!\n");
+            }else if(CompararCartasPopulacao(populacao1, populacao2) == 0){
+                printf("A Carta 2 Venceu!!\n");
+            }else{
+                printf("Empatou!!\n");
+            }
+            break;
 
-    printf("Número de Pontos Turísticos: ");
-    if(CompararCartasPontoTuristico(numeroPontosTuristicos1, numeroPontosTuristicos2) == 1){
-        printf("A Carta 1 Venceu!!\n");
-    }else{
-        printf("A Carta 2 Venceu!!\n");
-    }
+        case 2:
+            printf("Número de Pontos Turísticos: ");
+            if(CompararCartasPontoTuristico(numeroPontosTuristicos1, numeroPontosTuristicos2) == 1){
+                printf("A Carta 1 Venceu!!\n");
+            }else if(CompararCartasPontoTuristico(numeroPontosTuristicos1, numeroPontosTuristicos2) == 0){
+                printf("A Carta 2 Venceu!!\n");
+            }else{
+                printf("Empatou!!\n");
+            }
+            break;
 
-    printf("Área: ");
-    if(CompararCartasFloat(area1, area2) == 1){
-        printf("A Carta 1 Venceu!!\n");
-    }else{
-        printf("A Carta 2 Venceu!!\n");
-    }
+        case 3:
+            printf("Área: ");
+            if(CompararCartasFloat(area1, area2) == 1){
+                printf("A Carta 1 Venceu!!\n");
+            }else if(CompararCartasFloat(area1, area2) == 0){
+                printf("A Carta 2 Venceu!!\n");
+            }else{
+                printf("Empatou!!\n");
+            }
+            break;
 
-    printf("PIB: ");
-    if(CompararCartasFloat(pib1, pib2) == 1){
-        printf("A Carta 1 Venceu!!\n");
-    }else{
-        printf("A Carta 2 Venceu!!\n");
-    }
+        case 4:
+            printf("PIB: ");
+            if(CompararCartasFloat(pib1, pib2) == 1){
+                printf("A Carta 1 Venceu!!\n");
+            }else if(CompararCartasFloat(pib1, pib2) == 0){
+                printf("A Carta 2 Venceu!!\n");
+            }else{
+                printf("Empatou!!\n");
+            }
+            break;
 
-    printf("Densidade Populacional: ");
-    if(CompararCartasFloat(densidadePopulacional1, densidadePopulacional2) == 0){ //Aqui foi comparado com 0 para a carta 1 pois Densidade Populacional ganha o menor valor invés do maior
-        printf("A Carta 1 Venceu!!\n");
-    }else{
-        printf("A Carta 2 Venceu!!\n");
-    }
+        case 5:
+            printf("Densidade Populacional: ");
+            if(CompararCartasFloat(densidadePopulacional1, densidadePopulacional2) == 0){ //Aqui foi comparado com 0 para a carta 1 pois Densidade Populacional ganha o menor valor invés do maior
+                printf("A Carta 1 Venceu!!\n");
+            }else if(CompararCartasFloat(densidadePopulacional1, densidadePopulacional2) == 1){
+                printf("A Carta 2 Venceu!!\n");
+            }else{
+                printf("Empatou!!\n");
+            }
+            break;
 
-    printf("PIB Per Capta: ");
-    if(CompararCartasFloat(pibPerCapta1, pibPerCapta2) == 1){
-        printf("A Carta 1 Venceu!!\n");
-    }else{
-        printf("A Carta 2 Venceu!!\n");
-    }
-    
-    printf("Super Poder: ");
-    if(CompararCartasFloat(superPoder1, superPoder2) == 1){
-        printf("A Carta 1 Venceu!!\n");
-    }else{
-        printf("A Carta 2 Venceu!!\n");
+        case 6:
+            printf("PIB Per Capta: ");
+            if(CompararCartasFloat(pibPerCapta1, pibPerCapta2) == 1){
+                printf("A Carta 1 Venceu!!\n");
+            }else if(CompararCartasFloat(pibPerCapta1, pibPerCapta2) == 0){
+                printf("A Carta 2 Venceu!!\n");
+            }else{
+                printf("Empatou!!\n");
+            }
+            break;
+
+        case 7:
+            printf("Super Poder: ");
+            if(CompararCartasFloat(superPoder1, superPoder2) == 1){
+                printf("A Carta 1 Venceu!!\n");
+            }else if(CompararCartasFloat(superPoder1, superPoder2) == 0){
+                printf("A Carta 2 Venceu!!\n");
+            }else{
+                printf("Empatou!!\n");
+            }
+            break;
+
+        case 8: //opção de saída define a booleana sair pra true e encerra o jogo
+            printf("Saindo do jogo\n");
+            sair = true;
+            break;
+        
+        default: //Qualquer valor diferente do intervalo 1-8 acusa opção inválida e volta para o menu de escolha
+            printf("Opção inválida, tente novamente\n");
+            break;
+        }
+        printf("\n");
     }
 
     return 0;
