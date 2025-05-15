@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <stdbool.h> //inclusão de biblioteca para usar valores booleanos
+#include <stdbool.h>
 
 // Desafio Super Trunfo - Países
 // Tema 2 - Super Trunfo em c: Desenvolvendo a Lógica do Jogo
-// Nível intermediário
+// Nível mestre
 //Teste Erick
 
 void PrintCarta(char codigoCidade[5], char estado[3], char nome[25], unsigned long int populacao, int numeroPontosTuristicos, float area, float pib, float densidadePopulacional, float pibPerCapta, float superPoder) {
@@ -22,33 +22,15 @@ void PrintCarta(char codigoCidade[5], char estado[3], char nome[25], unsigned lo
 }
 
 int CompararCartasFloat(float valor1, float valor2){ //função comum para comparação de área, pib, densidade, pib per capta e super poder.
-    if(valor1 > valor2){
-        return 1;
-    }else if(valor1 < valor2){
-        return 0;
-    }else{
-        return 2;
-    }
+    return (valor1 > valor2) ? 1 : 0;
 }
 
 int CompararCartasPontoTuristico(int valor1, int valor2){
-    if(valor1 > valor2){
-        return 1;
-    }else if(valor1 < valor2){
-        return 0;
-    }else{
-        return 2;
-    }
+    return (valor1 > valor2) ? 1 : 0;
 }
 
 int CompararCartasPopulacao(unsigned long int valor1, unsigned long int valor2){
-    if(valor1 > valor2){
-        return 1;
-    }else if(valor1 < valor2){
-        return 0;
-    }else{
-        return 2;
-    }
+    return (valor1 > valor2) ? 1 : 0;
 }
 
 int main() {
@@ -63,8 +45,8 @@ int main() {
     float pib1, pib2;
     float densidadePopulacional1, pibPerCapta1, densidadePopulacional2, pibPerCapta2;
     float superPoder1, superPoder2;
-    bool sair = false; //variável para sair do loop de escolha de atributo
-    int opcao;
+    bool continuar; //variável para sair do loop de escolha de atributo
+    int opcao1, opcao2, resultado1, resultado2;
 
     // Cadastro das Cartas:
     // Sugestão: Utilize a função scanf para capturar as entradas do usuário para cada atributo.
@@ -132,9 +114,10 @@ int main() {
     superPoder2 = numeroPontosTuristicos2 + populacao2 + area2 + pib2 + pibPerCapta2 - densidadePopulacional2;
 
     PrintCarta(codigoCarta2, estado2, nome2, populacao2, numeroPontosTuristicos2, area2, pib2, densidadePopulacional2, pibPerCapta2, superPoder2);
-
-    while(sair == false){
-        printf("Qual atributo você deseja comparar? (Digite um número de 1 a 8)\n");
+    
+    do{
+        continuar = false; //Condição de saída da repetição
+        printf("Qual o primeiro atributo que você deseja comparar? (Digite um número de 1 a 7)\n");
         printf("(1) População\n");
         printf("(2) Número de Pontos Turísticos\n");
         printf("(3) Área\n");
@@ -142,99 +125,124 @@ int main() {
         printf("(5) Densidade Populacional\n");
         printf("(6) PIB Per Capta\n");
         printf("(7) Super Poder\n");
-        printf("(8) Sair\n\n");
         
-        scanf("%d", &opcao);
+        scanf("%d", &opcao1);
 
-        switch (opcao)
+        switch (opcao1)
         {
         case 1:
-            printf("População: ");
-            if(CompararCartasPopulacao(populacao1, populacao2) == 1){
-                printf("A Carta 1 Venceu!!\n");
-            }else if(CompararCartasPopulacao(populacao1, populacao2) == 0){
-                printf("A Carta 2 Venceu!!\n");
-            }else{
-                printf("Empatou!!\n");
-            }
+            printf("População é o primeiro atributo! ");
+            resultado1 = CompararCartasPopulacao(populacao1, populacao2);
             break;
 
         case 2:
-            printf("Número de Pontos Turísticos: ");
-            if(CompararCartasPontoTuristico(numeroPontosTuristicos1, numeroPontosTuristicos2) == 1){
-                printf("A Carta 1 Venceu!!\n");
-            }else if(CompararCartasPontoTuristico(numeroPontosTuristicos1, numeroPontosTuristicos2) == 0){
-                printf("A Carta 2 Venceu!!\n");
-            }else{
-                printf("Empatou!!\n");
-            }
+            printf("Número de Pontos Turísticos é o primeiro atributo! ");
+            resultado1 = CompararCartasPontoTuristico(numeroPontosTuristicos1, numeroPontosTuristicos2);
             break;
 
         case 3:
-            printf("Área: ");
-            if(CompararCartasFloat(area1, area2) == 1){
-                printf("A Carta 1 Venceu!!\n");
-            }else if(CompararCartasFloat(area1, area2) == 0){
-                printf("A Carta 2 Venceu!!\n");
-            }else{
-                printf("Empatou!!\n");
-            }
+            printf("Área é o primeiro atributo! ");
+            resultado1 = CompararCartasFloat(area1, area2);
             break;
 
         case 4:
-            printf("PIB: ");
-            if(CompararCartasFloat(pib1, pib2) == 1){
-                printf("A Carta 1 Venceu!!\n");
-            }else if(CompararCartasFloat(pib1, pib2) == 0){
-                printf("A Carta 2 Venceu!!\n");
-            }else{
-                printf("Empatou!!\n");
-            }
+            printf("PIB é o primeiro atributo! ");
+            resultado1 = CompararCartasFloat(pib1, pib2);
             break;
 
         case 5:
-            printf("Densidade Populacional: ");
-            if(CompararCartasFloat(densidadePopulacional1, densidadePopulacional2) == 0){ //Aqui foi comparado com 0 para a carta 1 pois Densidade Populacional ganha o menor valor invés do maior
-                printf("A Carta 1 Venceu!!\n");
-            }else if(CompararCartasFloat(densidadePopulacional1, densidadePopulacional2) == 1){
-                printf("A Carta 2 Venceu!!\n");
-            }else{
-                printf("Empatou!!\n");
-            }
+            printf("Densidade Populacional é o primeiro atributo! ");
+            resultado1 = !CompararCartasFloat(densidadePopulacional1, densidadePopulacional2); //Aqui foi usado negação para que o valor da variável reflita se ganhou a carta 1 ou 2, porque a carta 1 ganha se o resultado for 0, já que Densidade Populacional ganha o menor valor invés do maior, e na lógica a carta vencedora é a carta 1 se o valor for 1.
             break;
 
         case 6:
-            printf("PIB Per Capta: ");
-            if(CompararCartasFloat(pibPerCapta1, pibPerCapta2) == 1){
-                printf("A Carta 1 Venceu!!\n");
-            }else if(CompararCartasFloat(pibPerCapta1, pibPerCapta2) == 0){
-                printf("A Carta 2 Venceu!!\n");
-            }else{
-                printf("Empatou!!\n");
-            }
+            printf("PIB Per Capta é o primeiro atributo! ");
+            resultado1 = CompararCartasFloat(pibPerCapta1, pibPerCapta2);
             break;
 
         case 7:
-            printf("Super Poder: ");
-            if(CompararCartasFloat(superPoder1, superPoder2) == 1){
-                printf("A Carta 1 Venceu!!\n");
-            }else if(CompararCartasFloat(superPoder1, superPoder2) == 0){
-                printf("A Carta 2 Venceu!!\n");
-            }else{
-                printf("Empatou!!\n");
-            }
+            printf("Super Poder é o primeiro atributo! ");
+            resultado1 = CompararCartasFloat(superPoder1, superPoder2) ;
             break;
-
-        case 8: //opção de saída define a booleana sair pra true e encerra o jogo
-            printf("Saindo do jogo\n");
-            sair = true;
-            break;
-        
-        default: //Qualquer valor diferente do intervalo 1-8 acusa opção inválida e volta para o menu de escolha
+       
+        default: //Qualquer valor diferente do intervalo 1-7 acusa opção inválida e volta para o menu de escolha
             printf("Opção inválida, tente novamente\n");
+            continuar = true;
             break;
         }
-        printf("\n");
+        printf("\n\n");
+    }while(continuar == true);
+
+    do{
+        continuar = false; //Condição de saída da repetição
+        printf("Qual o segundo atributo que você deseja comparar? (Digite um número de 1 a 7)\n");
+        printf("(1) População\n");
+        printf("(2) Número de Pontos Turísticos\n");
+        printf("(3) Área\n");
+        printf("(4) PIB\n");
+        printf("(5) Densidade Populacional\n");
+        printf("(6) PIB Per Capta\n");
+        printf("(7) Super Poder\n");
+        
+        scanf("%d", &opcao2);
+
+        if(opcao2 == opcao1){
+            printf("O segundo atributo não pode ser igual ao primeiro! Tente de novo\n");
+            continuar = true;
+        }else{
+            switch (opcao2)
+            {
+            case 1:
+                printf("População é o segundo atributo! ");
+                resultado2 = CompararCartasPopulacao(populacao1, populacao2);
+                break;
+
+            case 2:
+                printf("Número de Pontos Turísticos é o segundo atributo! ");
+                resultado2 = CompararCartasPontoTuristico(numeroPontosTuristicos1, numeroPontosTuristicos2);
+                break;
+
+            case 3:
+                printf("Área é o segundo atributo! ");
+                resultado2 = CompararCartasFloat(area1, area2);
+                break;
+
+            case 4:
+                printf("PIB é o segundo atributo! ");
+                resultado2 = CompararCartasFloat(pib1, pib2);
+                break;
+
+            case 5:
+                printf("Densidade Populacional é o segundo atributo! ");
+                resultado2 = !CompararCartasFloat(densidadePopulacional1, densidadePopulacional2); //Aqui foi usado negação para que o valor da variável reflita se ganhou a carta 1 ou 2, porque a carta 1 ganha se o resultado for 0, já que Densidade Populacional ganha o menor valor invés do maior, e na lógica a cartão vencedora é a carta 1 se o valor for 1.
+                break;
+
+            case 6:
+                printf("PIB Per Capta é o segundo atributo! ");
+                resultado2 = CompararCartasFloat(pibPerCapta1, pibPerCapta2);
+                break;
+
+            case 7:
+                printf("Super Poder é o segundo atributo! ");
+                resultado2 = CompararCartasFloat(superPoder1, superPoder2) ;
+                break;
+        
+            default: //Qualquer valor diferente do intervalo 1-7 acusa opção inválida e volta para o menu de escolha
+                printf("Opção inválida, tente novamente\n");
+                continuar = false;
+                break;
+            }
+        }
+        
+        printf("\n\n");
+    }while(continuar == true);
+    
+    if(resultado1 && resultado2){ //ser for 1 e 1, o resultado é true e entra no if
+        printf("A carta 1 venceu!!\n");
+    }else if(resultado1 != resultado2){ //se forem resultados diferentes significa que houve empate
+        printf("Empatou!!\n");
+    }else{
+        printf("A carta 2 venceu!!\n"); //se não cair em nenhuma das condições anteriores o resultado é 0 e 0, a carta 2 vence
     }
 
     return 0;
